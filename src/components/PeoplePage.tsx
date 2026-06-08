@@ -68,6 +68,12 @@ export const PeoplePage = () => {
     }
   }
 
+  const noPeopleMatching =
+    !isLoading && !hasError && people.length > 0 && visiblePeople.length === 0;
+
+  const tableOfPeople =
+    !isLoading && !hasError && people.length > 0 && visiblePeople.length > 0;
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -101,21 +107,13 @@ export const PeoplePage = () => {
                 </p>
               )}
 
-              {!isLoading &&
-                !hasError &&
-                people.length > 0 &&
-                visiblePeople.length === 0 && (
-                  <p>
-                    There are no people matching the current search criteria
-                  </p>
-                )}
+              {noPeopleMatching && (
+                <p>There are no people matching the current search criteria</p>
+              )}
 
-              {!isLoading &&
-                !hasError &&
-                people.length > 0 &&
-                visiblePeople.length > 0 && (
-                  <PeopleTable people={visiblePeople} selectedSlug={slug} />
-                )}
+              {tableOfPeople && (
+                <PeopleTable people={visiblePeople} selectedSlug={slug} />
+              )}
             </div>
           </div>
         </div>
